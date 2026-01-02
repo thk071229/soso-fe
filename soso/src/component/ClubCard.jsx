@@ -32,7 +32,7 @@ const ClubCard = ({ data }) => {
                 <div className="d-flex justify-content-between align-items-end mt-3">
                     {/* 멤버 정보 */}
                     <div className="d-flex align-items-center">
-                        <i className="bi bi-people-fill text-secondary me-1"></i>
+                        <i className="bi bi-people-fill text-secondary me-1" style={{color : '#20C997'}}></i>
                         <span className="text-secondary" style={{ fontSize: '13px' }}>
                             {data.currentMember} / {data.maxMember}명
                         </span>

@@ -6,8 +6,7 @@
 .logo {
     font-family: sans-serif;
     font-weight: 800;
-    /* color: #FF6B6B;  <-- 기존 색상 주석 처리 */
-    color: #FA8E78;  /* ✨ NEW 따뜻한 포인트 컬러 */
+    color: #20C997; /* ✨ 변경: 살구색 -> 민트색 */
     text-decoration: none;
     letter-spacing: -0.5px;
     transition: font-size 0.3s;
@@ -24,17 +23,15 @@
 
 /* 검색창 박스 */
 .searchBox {
-    /* background-color: #F5F7F9; <-- 기존 차가운 회색 */
-    background-color: #F9F8F7; /* ✨ 따뜻한 미색 배경 */
+    background-color: #F8F9FA;
     border-radius: 25px;
     transition: all 0.3s;
-    border: 1px solid transparent; /* 테두리 추가 (포커스 효과용) */
+    border: 1px solid transparent;
 }
 .searchBox:focus-within {
     background-color: #fff;
-    /* box-shadow: 0 0 0 2px #FF6B6B; <-- 기존 */
-    border-color: #FA8E78; /* ✨ 테두리 색상 변경 */
-    box-shadow: 0 2px 8px rgba(250, 142, 120, 0.15); /* 부드러운 그림자 */
+    border-color: #20C997; /* ✨ 변경: 테두리 민트색 */
+    box-shadow: 0 4px 12px rgba(32, 201, 151, 0.15); /* ✨ 변경: 그림자도 민트빛 */
 }
 
 .searchInput {

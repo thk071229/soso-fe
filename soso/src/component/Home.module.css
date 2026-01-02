@@ -1,8 +1,9 @@
 .bannerSection {
-    background: linear-gradient(135deg, #FFF5F2 0%, #FFF 100%); /* 살구색 그라데이션 */
+    /* ✨ 변경: 연한 민트에서 화이트로 이어지는 그라데이션 */
+    background: linear-gradient(135deg, #E6FCF5 0%, #FFFFFF 100%); 
     padding: 60px 0;
     margin-bottom: 40px;
-    border-radius: 0 0 30px 30px; /* 아래쪽만 둥글게 */
+    border-radius: 0 0 30px 30px;
 }
 
 .bannerTitle {

@@ -11,7 +11,7 @@
 /* 푸터 로고 */
 .footerLogo {
     font-weight: 800;
-    color: #FA8E78; /* 헤더와 동일한 포인트 컬러 */
+    color: #20C997; /* ✨ 변경 */
     text-decoration: none;
     font-size: 1.5rem;
     display: inline-block;
@@ -41,7 +41,7 @@
     transition: color 0.2s;
 }
 .footerLink:hover {
-    color: #FA8E78; /* 마우스 올리면 포인트 컬러로 */
+    color: #20C997; /* ✨ 변경 */
 }
 
 /* SNS 아이콘 */
@@ -52,8 +52,8 @@
     transition: all 0.2s;
 }
 .snsIcon:hover {
-    color: #FA8E78;
-    transform: translateY(-3px); /* 살짝 떠오르는 효과 */
+    color: #20C997; /* ✨ 변경 */
+    transform: translateY(-3px);
 }
 
 /* 하단 저작권 영역 */

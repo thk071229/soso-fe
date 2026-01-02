@@ -72,7 +72,7 @@ export default function Home() {
                             <span className="badge bg-secondary text-white mb-2">New</span>
                             <h1 className={styles.bannerTitle}>
                                 소소한 취미,<br />
-                                <span style={{ color: '#FA8E78' }}>특별한 만남</span>으로<br />
+                                <span style={{ color: '#20C997' }}>특별한 만남</span>으로<br />
                                 시작해보세요.
                             </h1>
                             <p className="text-secondary mt-3">
@@ -83,7 +83,7 @@ export default function Home() {
                         {/* 배너 오른쪽엔 일러스트나 이미지가 들어가면 좋음 (일단 비워둠) */}
                         <div className="col-md-6 text-end d-none d-md-block">
                             {/* 폰트어썸 아이콘을 크게 넣어서 장식 */}
-                            <i className="bi bi-people-fill" style={{ fontSize: '150px', color: '#FFE9E4' }}></i>
+                            <i className="bi bi-people-fill" style={{ fontSize: '150px', color: '#C3FAE8' }}></i>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,6 @@ export default function Home() {
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                     {dummyMoims.map((club) => (
                         <div className="col" key={club.id}>
-                            {/* MoimCard에 데이터 전달 */}
                             <ClubCard data={club} />
                         </div>
                     ))}
