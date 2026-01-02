@@ -1,0 +1,21 @@
+.bannerSection {
+    background: linear-gradient(135deg, #FFF5F2 0%, #FFF 100%); /* 살구색 그라데이션 */
+    padding: 60px 0;
+    margin-bottom: 40px;
+    border-radius: 0 0 30px 30px; /* 아래쪽만 둥글게 */
+}
+
+.bannerTitle {
+    font-weight: 800;
+    color: #333;
+    line-height: 1.3;
+}
+
+.sectionTitle {
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

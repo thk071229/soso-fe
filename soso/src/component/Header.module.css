@@ -1,0 +1,67 @@
+/* src/components/Header.module.css */
+
+/* --- [공통 디자인] --- */
+
+/* 로고: 쨍한 코랄 컬러 */
+.logo {
+    font-family: sans-serif;
+    font-weight: 800;
+    /* color: #FF6B6B;  <-- 기존 색상 주석 처리 */
+    color: #FA8E78;  /* ✨ NEW 따뜻한 포인트 컬러 */
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: font-size 0.3s;
+}
+
+/* 지역 버튼 */
+.regionBtn {
+    font-weight: 700;
+    color: #333;
+    border: 1px solid #eee;
+    background-color: #fff;
+    white-space: nowrap; /* 글씨 줄바꿈 금지 */
+}
+
+/* 검색창 박스 */
+.searchBox {
+    /* background-color: #F5F7F9; <-- 기존 차가운 회색 */
+    background-color: #F9F8F7; /* ✨ 따뜻한 미색 배경 */
+    border-radius: 25px;
+    transition: all 0.3s;
+    border: 1px solid transparent; /* 테두리 추가 (포커스 효과용) */
+}
+.searchBox:focus-within {
+    background-color: #fff;
+    /* box-shadow: 0 0 0 2px #FF6B6B; <-- 기존 */
+    border-color: #FA8E78; /* ✨ 테두리 색상 변경 */
+    box-shadow: 0 2px 8px rgba(250, 142, 120, 0.15); /* 부드러운 그림자 */
+}
+
+.searchInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+}
+
+/* --- [📱 모바일 전용 반응형 (Media Query)] --- */
+/* 화면이 768px(태블릿/모바일)보다 작을 때 적용 */
+@media (max-width: 768px) {
+    
+    /* 로고 크기 살짝 줄임 */
+    .logo {
+        font-size: 1.5rem !important; /* 원래 fs-3보다 작게 */
+    }
+
+    /* 검색창 높이 조금 더 슬림하게 */
+    .searchBox {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
+    
+    /* 검색창 글씨 크기 줄임 */
+    .searchInput {
+        font-size: 14px;
+    }
+}

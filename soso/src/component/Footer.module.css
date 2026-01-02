@@ -1,0 +1,67 @@
+/* Footer.module.css */
+
+.footerContainer {
+    background-color: #F9F8F7; /* 따뜻한 미색 배경 */
+    color: #666; /* 부드러운 회색 글씨 */
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    border-top: 1px solid #eee;
+}
+
+/* 푸터 로고 */
+.footerLogo {
+    font-weight: 800;
+    color: #FA8E78; /* 헤더와 동일한 포인트 컬러 */
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* 푸터 제목 */
+.footerTitle {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+}
+
+/* 링크 리스트 */
+.footerList {
+    list-style: none; /* 점 없애기 */
+    padding: 0;
+    margin: 0;
+}
+.footerList li {
+    margin-bottom: 0.8rem;
+}
+.footerLink {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.2s;
+}
+.footerLink:hover {
+    color: #FA8E78; /* 마우스 올리면 포인트 컬러로 */
+}
+
+/* SNS 아이콘 */
+.snsIcon {
+    font-size: 1.5rem;
+    color: #999;
+    margin-right: 1rem;
+    transition: all 0.2s;
+}
+.snsIcon:hover {
+    color: #FA8E78;
+    transform: translateY(-3px); /* 살짝 떠오르는 효과 */
+}
+
+/* 하단 저작권 영역 */
+.copyright {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #999;
+}
