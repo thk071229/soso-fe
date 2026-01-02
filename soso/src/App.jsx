@@ -1,10 +1,22 @@
+import { BrowserRouter } from "react-router-dom"
 import './App.css'
+import Menu from "./component/Menu"
+import Content from "./component/Content"
+import Footer from "./component/Footer"
 
 function App() {
 
   return (
     <>
-    <h1>소모임 프로젝트 : 소소</h1>
+    <BrowserRouter>
+      <Menu />
+        <div className="container-fluid my-5 pt-5">
+          <Content />
+
+          <hr />
+          <Footer />
+        </div>
+    </BrowserRouter>
     </>
   )
 }
