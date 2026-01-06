@@ -1,0 +1,130 @@
+/* AccountJoinStep1.module.css */
+
+/* 전체 폼 컨테이너 */
+.formContainer {
+    width: 100%;
+    max-width: 450px; /* 너무 넓어지지 않게 제한 */
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* 제목 및 설명 영역 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.5;
+}
+
+/* 입력 그룹 (라벨 + 인풋 + 버튼) */
+.inputGroup {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    margin-left: 4px;
+}
+
+.inputWrapper {
+    display: flex;
+    gap: 8px; /* 인풋과 버튼 사이 간격 */
+}
+
+.input {
+    flex: 1; /* 남은 공간 다 차지 */
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #78C2AD; /* 포커스 시 민트색 */
+}
+
+.input:read-only {
+    background-color: #f9f9f9;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* 버튼 스타일 */
+.button {
+    padding: 0 20px;
+    background-color: #78C2AD;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+}
+
+.button:hover {
+    background-color: #65a894;
+}
+
+/* 재전송 버튼 (흰배경) */
+.resendButton {
+    background-color: white;
+    color: #78C2AD;
+    border: 1px solid #78C2AD;
+}
+
+.resendButton:hover {
+    background-color: #f0fdf9;
+}
+
+/* 타이머 뱃지 */
+.timerBadge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #f1f3f5;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 피드백 메시지 */
+.feedback {
+    font-size: 12px;
+    margin-top: 8px;
+    margin-left: 4px;
+}
+
+.success { color: #28a745; }
+.error { color: #dc3545; }
+
+/* 재입력 링크 */
+.resetLink {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+    text-align: right;
+    cursor: pointer;
+    text-decoration: underline;
+}

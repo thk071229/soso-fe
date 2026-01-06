@@ -20,9 +20,9 @@ export default function Header(){
                         <button className="btn btn-outline-light text-dark btn-sm rounded-pill fw-bold border-0">
                             로그인
                         </button>
-                        <button className="btn btn-dark btn-sm rounded-pill px-3 fw-bold">
+                        <Link to="/account/agreement" className="btn btn-dark btn-sm rounded-pill px-3 fw-bold">
                             회원가입
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

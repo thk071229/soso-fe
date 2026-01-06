@@ -1,0 +1,11 @@
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    /* 배경색이나 테두리가 필요하면 여기에 */
+}
+
+.contentArea {
+    margin-top: 40px;
+    /* Step 컴포넌트들이 들어올 영역의 여백 */
+}

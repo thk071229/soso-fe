@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import AccountJoin from "./account/accountjoin/accountJoin";
 import AccountJoinFinish from "./account/accountjoin/AccountJoinFinish";
 import Home from "./Home";
+import Agreement from "./account/accountjoin/Agreement";
 
 
 export default function Content() {
@@ -19,6 +20,7 @@ export default function Content() {
                         {/* 회원 관련 페이지 */}
                         <Route path="/account/join" element={<AccountJoin />}></Route>
                         <Route path="/account/joinFinish" element={<AccountJoinFinish />}></Route>
+                        <Route path="/account/agreement" element={<Agreement/>}></Route>
 
                     </Routes>
                 </div>
