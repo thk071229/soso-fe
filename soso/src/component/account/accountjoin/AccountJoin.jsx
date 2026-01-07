@@ -10,7 +10,7 @@ export default function AccountJoin() {
     const navigate = useNavigate();
 
     // 현재 단계
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(1);
 
     const steps = ["본인인증", "정보입력"]
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { formatTime } from "../../../utils/format";
+import { formatTime } from "../../../utils/hooks/useFormat";
 import axios from "axios";
 import styles from "./AccountJoinStep1.module.css";
 
