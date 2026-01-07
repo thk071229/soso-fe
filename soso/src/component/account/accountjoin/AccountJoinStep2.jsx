@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../utils/axios/customAxios";
 
 // UI 아이콘
 import { FaCamera, FaEye, FaEyeSlash, FaUser } from "react-icons/fa6";
@@ -29,7 +29,7 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
     });
 
     const [feedbacks, setFeedbacks] = useState({
-        id: "", pw: "", nickname: ""
+        id: "", pw: "", nickname: "", email: ""
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -51,30 +51,36 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
         setAccount(prev => ({ ...prev, accountBirth: e.target.value }));
     }, []);
 
-    //아이디 검사
+    // 아이디 검사
     const checkAccountId = useCallback(async (e) => {
         const regex = /^[a-z][a-z0-9]{4,19}$/;
         const isValid = regex.test(account.accountId);
-        if (isValid) {
+
+        if (isValid) {//형식에 맞으면
             try {
                 const { data } = await axios.get(`/account/accountId/${account.accountId}`);
-                if (data === true) {
+                console.log("서버가 보낸 진짜 데이터:", data);
+                console.log("데이터 타입:", typeof data);
+                if (data === true) {// false면 중복
                     setAccountClass(prev => ({ ...prev, accountId: "is-valid" }));
+                    setFeedbacks(prev => ({ ...prev, id: "" }));
+                    alert("사용 가능한 아이디입니다.");
                 }
                 else {
                     setAccountClass(prev => ({ ...prev, accountId: "is-invalid" }));
-                    setAccountIdFeedback("이미 사용중인 아이디입니다");
+                    setFeedbacks(prev => ({ ...prev, id: "" }));
+                    alert("이미 존재하는 아이디입니다.");
                 }
-            } catch (e) { console.error(e); }
+            }
+            catch (e) {// 알 수 없는 오류
+                console.error("에러 발생", e);
+                alert("서버 통신 오류가 발생했습니다.");
+            }
         }
-        else {
+        else {// 형식에 맞지 않으면
             setAccountClass(prev => ({ ...prev, accountId: "is-invalid" }));
-            setAccountIdFeedback("아이디는 영문 소문자로 시작하며 숫자를 포함한 5-20자로 작성하세요");
-        }
-
-        if (account.accountId.length === 0) {
-            setAccountClass(prev => ({ ...prev, accountId: "" }));
-            setAccountIdFeedback("");
+            setFeedbacks(prev => ({ ...prev, id: "영문 소문자 시작, 숫자 포함 5~20자" }));
+            return;
         }
     }, [account.accountId]);
 
@@ -92,26 +98,41 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
 
     }, [account.accountPw, account.accountPw2]);
 
-    // 유효성 검사 (닉네임)
-    //닉네임 검사
+    // 닉네임 검사 (알림창 및 409 에러 처리 추가)
     const checkAccountNickname = useCallback(async () => {
         const regex = /^[가-힣0-9]{2,10}$/;
-        const isValid = regex.test(account.accountNickname);
-        if (isValid === true) {
-            try {
-                const { data } = await axios.get(`/account/accountNickname/${account.accountNickname}`);
-                if (data === true) {
-                    setAccountClass(prev => ({ ...prev, accountNickname: "is-valid" }));
-                }
-                else {
-                    setAccountClass(prev => ({ ...prev, accountNickname: "is-invalid" }));
-                    setAccountNicknameFeedback("이미 사용중인 닉네임입니다");
-                }
-            } catch (e) { console.error(e); }
-        }
-        else {
+
+        // 1. 형식 검사
+        if (!regex.test(account.accountNickname)) {
             setAccountClass(prev => ({ ...prev, accountNickname: "is-invalid" }));
-            setAccountNicknameFeedback("한글 또는 숫자 2~10글자로 작성하세요");
+            setFeedbacks(prev => ({ ...prev, nickname: "한글 또는 숫자 2~10글자" }));
+            return; // 중단
+        }
+
+        // 2. 서버 중복 검사
+        try {
+            const { data } = await axios.get(`/account/accountNickname/${account.accountNickname}`);
+
+            if (data === true) {
+                setAccountClass(prev => ({ ...prev, accountNickname: "is-valid" }));
+                setFeedbacks(prev => ({ ...prev, nickname: "" }));
+                alert("사용 가능한 닉네임입니다."); // [알림창]
+            }
+            else {
+                setAccountClass(prev => ({ ...prev, accountNickname: "is-invalid" }));
+                setFeedbacks(prev => ({ ...prev, nickname: "" }));
+                alert("이미 존재하는 닉네임입니다.");
+            }
+        } catch (e) {
+            setAccountClass(prev => ({ ...prev, accountNickname: "is-invalid" }));
+            setFeedbacks(prev => ({ ...prev, nickname: "" }));
+
+            if (e.response && e.response.status === 409) {
+                alert("이미 존재하는 닉네임입니다."); // [409 에러 알림]
+            } else {
+                console.error(e);
+                alert("중복 검사 중 오류가 발생했습니다.");
+            }
         }
     }, [account.accountNickname]);
 
