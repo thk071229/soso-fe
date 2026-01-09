@@ -26,7 +26,7 @@ export default function AccountJoinFinish() {
                 {/* 3. 로그인 이동 버튼 */}
                 <button
                     className={styles.btn}
-                    onClick={() => navigate("/login")} // 로그인 페이지 경로에 맞게 수정
+                    onClick={() => navigate("/account/login")} 
                 >
                     로그인 하러가기
                 </button>

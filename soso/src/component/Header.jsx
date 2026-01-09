@@ -17,9 +17,9 @@ export default function Header(){
                     </Link>
 
                     <div className="d-flex gap-2">
-                        <button className="btn btn-outline-light text-dark btn-sm rounded-pill fw-bold border-0">
+                        <Link to="/account/login" className="btn btn-outline-light text-dark btn-sm rounded-pill fw-bold border-0">
                             로그인
-                        </button>
+                        </Link>
                         <Link to="/account/agreement" className="btn btn-dark btn-sm rounded-pill px-3 fw-bold">
                             회원가입
                         </Link>
