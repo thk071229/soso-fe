@@ -161,24 +161,37 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
         );
     }, [accountClass, account]);
 
-    // 전송 로직
+    // 최종 가입
     const sendData = useCallback(async () => {
-        if (!accountValid) return;
+        // 프로필 이미지를 위한 formData
         const formData = new FormData();
+        // 텍스트 데이터 모두 담아야 함
+        formData.append("accountId", account.accountId);
+        formData.append("accountPw", account.accountPw);
+        formData.append("accountNickname", account.accountNickname);
+        formData.append("accountContact", account.accountContact);
+        formData.append("accountEmail", account.accountEmail);
+        formData.append("accountGender", account.accountGender);
+        formData.append("accountBirth", account.accountBirth);
+        formData.append("accountMarketingAgree", account.accountMarketingAgree);
+        formData.append("accountThirdPartyAgree", account.accountThirdPartyAgree);
 
-        Object.keys(account).forEach(key => {
-            if (key !== 'attach') formData.append(key, account[key]);
-        });
-        if (file) formData.append("attach", file);
+        if (file) {// 파일이 있으면 전송 목록에 추가
+            formData.append("attach", file);
+        }
 
+        if (accountValid === false) return;
         try {
             await axios.post("/account/join", formData);
             navigate("/account/joinFinish");
         } catch (e) {
-            const msg = e.response?.data?.message || "가입 오류 발생";
-            alert(msg);
+            if (e.response && e.response.status === 409) {
+                alert(e.response.data.message || "이미 가입된 정보입니다.");
+            } else {
+                alert("가입 중 오류가 발생했습니다.");
+            }
         }
-    }, [account, accountValid, file, navigate]);
+    }, [account, accountValid, navigate]);
 
     // [추가] 오늘 날짜 구하기 (미래 선택 방지용)
     const today = new Date().toISOString().split("T")[0];
@@ -306,11 +319,14 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
                                 <div className="col-sm-9">
                                     <div className="input-group">
                                         {/* styles.roundedInput 제거 */}
-                                        <input type="text"
+                                        <input
+                                            type="text"
                                             className={`form-control ${accountClass.accountNickname}`}
-                                            name="accountNickname" value={account.accountNickname} onChange={changeStrValue}
-                                            placeholder="한글, 숫자 2~10자" />
-
+                                            name="accountNickname"
+                                            value={account.accountNickname}
+                                            onChange={changeStrValue}
+                                            placeholder="한글, 숫자 2~10자"
+                                        />
                                         <button className={`btn ${styles.checkBtn} ms-2`} type="button" onClick={checkAccountNickname}>
                                             중복확인
                                         </button>
@@ -324,9 +340,15 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
                             <div className="row mb-3 align-items-center">
                                 <label className={`col-sm-3 ${styles.label}`}>이메일</label>
                                 <div className="col-sm-9">
-                                    <input type="text" className={`form-control ${accountClass.accountEmail}`}
-                                        name="accountEmail" value={account.accountEmail} onChange={changeStrValue} onBlur={checkAccountEmail}
-                                        placeholder="user@example.com (선택)" />
+                                    <input
+                                        type="text"
+                                        className={`form-control ${accountClass.accountEmail}`}
+                                        name="accountEmail"
+                                        value={account.accountEmail}
+                                        onChange={changeStrValue}
+                                        onBlur={checkAccountEmail}
+                                        placeholder="[선택] 이메일은 아이디/비밀번호 찾기에 사용될 수  있습니다."
+                                    />
                                     {accountClass.accountEmail === "is-invalid" && <div className="invalid-feedback d-block">이메일 형식이 올바르지 않습니다</div>}
                                 </div>
                             </div>
@@ -339,7 +361,9 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
                                 <div className="col-sm-9">
                                     <div className="btn-group w-100" role="group">
                                         {['남', '여', ''].map(gender => (
-                                            <button key={gender} type="button"
+                                            <button
+                                                key={gender}
+                                                type="button"
                                                 className={`btn ${styles.genderBtn} ${account.accountGender === gender ? styles.genderBtnActive : ''}`}
                                                 onClick={() => setAccount({ ...account, accountGender: gender })}>
                                                 {gender || '선택안함'}
