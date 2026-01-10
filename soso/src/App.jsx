@@ -6,7 +6,7 @@ import Header from "./component/Header"
 // Jotai 개발자 도구 설정
 import "jotai-devtools/styles.css"; // 디자인
 import { DevTools } from "jotai-devtools"; // 도구
-import { useAtom, useAtomValue, useSetAtom } from "jotai"
+import { Provider, useAtom, useAtomValue, useSetAtom } from "jotai"
 import { accessTokenState, adminState, clearLoginState, loginCompleteState, loginIdState, loginLevelState, loginState } from "./utils/jotai"
 import { useEffect } from "react"
 import axios from "./utils/axios/customAxios";
@@ -37,6 +37,7 @@ function App() {
 
   return (
     <>
+      <Provider>
       <BrowserRouter>
         {/* Jotai 개발자 도구 */}
         {import.meta.env.DEV && <DevTools />}
@@ -48,6 +49,7 @@ function App() {
           <Footer />
         </div>
       </BrowserRouter>
+      </Provider>
     </>
   )
 }
