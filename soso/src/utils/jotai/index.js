@@ -13,6 +13,9 @@ export const accessTokenState = atomWithStorage("accessToken", "", sessionStorag
 //refreshToken
 export const refreshTokenState = atomWithStorage("refreshToken", "", sessionStorage);
 
+// 지역 상태
+export const regionState = atomWithStorage("region", "수원시", localStorage);
+
 // 회원인지 판정
 export const loginState = atom(get => {
     const loginId = get(loginIdState);
@@ -47,3 +50,4 @@ accessTokenState.debugLabel = "accessToken";
 adminState.debugLabel = "adminState";
 loginCompleteState.debugLabel = "loginCompleteState";
 refreshTokenState.debugLabel = "refreshToken";
+regionState.debugLabel="regionState";
