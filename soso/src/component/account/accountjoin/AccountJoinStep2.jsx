@@ -182,8 +182,25 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
 
         if (accountValid === false) return;
         try {
-            await axios.post("/account/join", formData);
-            navigate("/account/joinFinish");
+            const response = await axios.post("/account/join", formData);
+
+            const accessToken = response.data.token;
+
+            if(accessToken){
+                window.localStorage.setItem("token", accessToken);
+
+                axios.defaults.headers.common["Authorization"] = `Bearer` + accessToken;
+
+                alert("환영합니다! 원활한 이용을 위해 초기 설정을 진행합니다");
+
+                navigate("/account/initial-setup");
+            }
+            else{
+                // 혹시라도 토큰이 안 왔을 때 대비
+                alert("가입은 되었으나 자동 로그인에 실패했습니다.");
+                navigate("/account/login");
+            }
+            navigate("/account/initial-setup");
         } catch (e) {
             if (e.response && e.response.status === 409) {
                 alert(e.response.data.message || "이미 가입된 정보입니다.");

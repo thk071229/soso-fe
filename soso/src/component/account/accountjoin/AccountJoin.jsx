@@ -20,7 +20,7 @@ export default function AccountJoin() {
     // step1이 성공하면 step2로 이동
     const step1Success = useCallback((phone) => {
         setVerifiedPhone(phone);
-        setStep(1);
+        setStep(prev=>prev+1);
     }, []);
 
     // 이용약관에서 받은 정보
