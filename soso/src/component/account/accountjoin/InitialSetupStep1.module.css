@@ -1,0 +1,163 @@
+/* 슬롯 컨테이너 */
+.slotContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* 개별 슬롯 카드 */
+.slotCard {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.slotCard:hover {
+    border-color: #20c997;
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.activeCard {
+    border-color: #20c997;
+    background-color: #e6fcf5;
+}
+
+/* 아이콘 및 텍스트 */
+.iconWrapper {
+    width: 40px;
+    height: 40px;
+    background-color: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #555;
+}
+
+.activeCard .iconWrapper {
+    background-color: white;
+    color: #20c997;
+}
+
+.slotInfo {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.slotLabel {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.slotValue {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 버튼들 */
+.plusIcon {
+    color: #ccc;
+}
+
+.removeBtn {
+    border: none;
+    background: none;
+    color: #999;
+    padding: 5px;
+}
+.removeBtn:hover {
+    color: #ff6b6b;
+}
+
+
+/* --- 모달 스타일 --- */
+.modalOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modalHeader {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selectorBody {
+    display: flex;
+    height: 400px; /* 고정 높이 */
+}
+
+/* 왼쪽 시/도 리스트 */
+.depth1List {
+    width: 35%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #eee;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+.depth1List li {
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.95rem;
+}
+
+.depth1List li:hover {
+    background-color: #e9ecef;
+}
+
+.activeDepth1 {
+    background-color: white !important;
+    color: #20c997;
+    font-weight: bold;
+    border-right: none;
+}
+
+/* 오른쪽 시/군/구 그리드 */
+.depth2Grid {
+    width: 65%;
+    padding: 20px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    align-content: start;
+}

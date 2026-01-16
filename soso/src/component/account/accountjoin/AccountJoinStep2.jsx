@@ -156,8 +156,7 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
             accountClass.accountPw === "is-valid" &&
             accountClass.accountPw2 === "is-valid" &&
             accountClass.accountNickname === "is-valid" &&
-            accountClass.accountEmail !== "is-invalid" &&
-            account.accountBirth && account.accountGender
+            accountClass.accountEmail !== "is-invalid"
         );
     }, [accountClass, account]);
 
