@@ -27,7 +27,7 @@ export default function InitialSetupStep1({ onNext }) {
     useEffect(() => {
         const fetchRegions = async () => {
             try {
-                const { data } = await axios.get("/region/");
+                const { data } = await axios.get("/region");
                 setRegionList(Array.isArray(data) ? data : []);
             } catch (err) {
                 console.error(err);
@@ -42,11 +42,11 @@ export default function InitialSetupStep1({ onNext }) {
         regionList.forEach((item) => {
             // regionName이 "서울특별시 종로구" 형태라고 가정
             const fullName = item.regionName || "";
-            const [depth1, depth2] = fullName.split(" "); 
+            const [depth1, depth2] = fullName.split(" ");
             if (!depth1) return;
 
             if (!groups[depth1]) groups[depth1] = [];
-            
+
             // depth2가 있으면 넣고, 없으면(세종시 등) "전체" 처리
             groups[depth1].push(depth2 || "전체");
         });
@@ -56,10 +56,10 @@ export default function InitialSetupStep1({ onNext }) {
     // 4. 핸들러: 지역 선택 완료 (모달에서 구/군 클릭 시)
     const handleSelectComplete = (depth2) => {
         const finalValue = depth2 === "전체" ? tempDepth1 : `${tempDepth1} ${depth2}`;
-        
+
         // 선택한 슬롯에 값 저장
         setSelections(prev => ({ ...prev, [activeSlot]: finalValue }));
-        
+
         // 모달 닫기 및 초기화
         setActiveSlot(null);
     };
@@ -74,19 +74,30 @@ export default function InitialSetupStep1({ onNext }) {
     const handleSubmit = async () => {
         if (!selections.HOME) return alert("집(필수) 위치를 설정해주세요!");
 
+        // [추가] DB가 원하는 값으로 변환하는 사전
+        const typeMapping = {
+            "HOME": "집",
+            "WORK": "직장",
+            "INTEREST": "관심지역"
+        };
+
         try {
             // 3개의 슬롯을 순회하며 저장
             for (const [type, regionName] of Object.entries(selections)) {
                 if (regionName) {
                     // [핵심] 문자열(서울 강남구)로 원본 리스트에서 ID(regionNo) 찾기
                     const target = regionList.find(r => r.regionName === regionName);
-                    
+
                     if (target) {
                         // DB Insert 요청
                         await axios.post("/region/insert", null, {
                             params: {
                                 regionNo: target.regionNo,
-                                regionType: type // HOME, WORK, INTEREST
+                                regionType: typeMapping[type]
+                            },
+                            // [추가] 토큰을 강제로 실어 보냅니다!
+                            headers: {
+                                Authorization: "Bearer " + accessToken
                             }
                         });
                     }
@@ -95,7 +106,13 @@ export default function InitialSetupStep1({ onNext }) {
             onNext(); // 다음 단계로
         } catch (e) {
             console.error(e);
-            alert("저장 중 오류가 발생했습니다.");
+
+            if (e.response && e.response.status === 500) {
+                alert("데이터베이스 제약조건 오류: regionType 값을 확인해주세요.");
+            } else {
+                alert("저장 중 오류가 발생했습니다.");
+            }
+
         }
     };
 
@@ -114,13 +131,13 @@ export default function InitialSetupStep1({ onNext }) {
             {/* 1. 슬롯 카드 영역 */}
             <div className={styles.slotContainer}>
                 {slotConfig.map((slot) => (
-                    <div 
-                        key={slot.key} 
+                    <div
+                        key={slot.key}
                         className={`${styles.slotCard} ${selections[slot.key] ? styles.activeCard : ''}`}
                         onClick={() => {
                             setActiveSlot(slot.key);
                             // 기존 값이 있다면 그 지역의 시/도로 탭 초기화 (UX 디테일)
-                            if(selections[slot.key]) {
+                            if (selections[slot.key]) {
                                 setTempDepth1(selections[slot.key].split(" ")[0]);
                             }
                         }}
@@ -134,11 +151,11 @@ export default function InitialSetupStep1({ onNext }) {
                                 {selections[slot.key] || "눌러서 지역 선택"}
                             </span>
                         </div>
-                        
+
                         {/* 값이 있을 때만 X 버튼 표시 (필수값인 HOME은 삭제 불가 처리 가능) */}
                         {selections[slot.key] && (
-                            <button 
-                                className={styles.removeBtn} 
+                            <button
+                                className={styles.removeBtn}
                                 onClick={(e) => handleRemove(e, slot.key)}
                             >
                                 <FaXmark />
@@ -154,16 +171,16 @@ export default function InitialSetupStep1({ onNext }) {
                 <div className={styles.modalOverlay} onClick={() => setActiveSlot(null)}>
                     <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                         <div className={styles.modalHeader}>
-                            <h5>지역 선택 ({slotConfig.find(s=>s.key === activeSlot).label})</h5>
+                            <h5>지역 선택 ({slotConfig.find(s => s.key === activeSlot).label})</h5>
                             <button className="btn-close" onClick={() => setActiveSlot(null)}></button>
                         </div>
-                        
+
                         <div className={styles.selectorBody}>
                             {/* 왼쪽: 시/도 리스트 */}
                             <ul className={styles.depth1List}>
                                 {Object.keys(groupedRegions).map(d1 => (
-                                    <li 
-                                        key={d1} 
+                                    <li
+                                        key={d1}
                                         className={tempDepth1 === d1 ? styles.activeDepth1 : ''}
                                         onClick={() => setTempDepth1(d1)}
                                     >
@@ -175,8 +192,8 @@ export default function InitialSetupStep1({ onNext }) {
                             {/* 오른쪽: 시/군/구 그리드 */}
                             <div className={styles.depth2Grid}>
                                 {groupedRegions[tempDepth1]?.map(d2 => (
-                                    <button 
-                                        key={d2} 
+                                    <button
+                                        key={d2}
                                         className="btn btn-outline-secondary btn-sm"
                                         onClick={() => handleSelectComplete(d2)}
                                     >
@@ -190,8 +207,8 @@ export default function InitialSetupStep1({ onNext }) {
             )}
 
             <div className="mt-5 text-end">
-                <button 
-                    className="btn btn-primary btn-lg px-5" 
+                <button
+                    className="btn btn-primary btn-lg px-5"
                     onClick={handleSubmit}
                     disabled={!selections.HOME} // 집 설정 안하면 비활성
                 >

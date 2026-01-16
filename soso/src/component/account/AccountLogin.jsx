@@ -42,6 +42,8 @@ export default function AccountLogin() {
             setLoginLevel(data.loginLevel);
             setAccessToken(data.accessToken);
             setRefreshToken(data.refreshToken);
+
+            navigate("/");
         }
         catch (e) {
             setIsLoginFail(true); 

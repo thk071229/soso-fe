@@ -38,7 +38,7 @@ const SearchSection = () => {
     // 1. 데이터 가져오기
     const fetchRegions = useCallback(async () => {
         try {
-            const { data } = await axios.get("/region/");
+            const { data } = await axios.get("/region");
             if (Array.isArray(data)) {
                 setRegionList(data);
             } else {

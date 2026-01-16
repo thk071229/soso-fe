@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '^/(account|cert|api|board|region)': { 
+      '^/(account|cert|api|board|region|category)': { 
         target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,

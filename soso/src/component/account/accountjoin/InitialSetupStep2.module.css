@@ -1,0 +1,102 @@
+/* --- 컨테이너 공통 --- */
+.slotContainer, .categoryGrid {
+    max-width: 600px; /* 전체 너비 제한 */
+    margin: 0 auto;   /* 중앙 정렬 */
+}
+
+/* --- Step 1 (지역) 스타일 --- */
+.slotCard {
+    /* (기존 Step1 스타일 유지...) */
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 15px; /* 카드 간격 */
+}
+
+/* ... (기존 Step1 관련 스타일들: iconWrapper, slotInfo 등) ... */
+
+
+/* --- Step 2 (카테고리) 스타일 --- */
+
+/* 그리드 레이아웃: 화면 크기에 따라 자동 배치 */
+.categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 최소 100px */
+    gap: 12px;
+}
+
+/* 카테고리 카드 (버튼) */
+.catCard {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 110px; /* 정사각형에 가까운 높이 */
+}
+
+/* 마우스 올렸을 때 */
+.catCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: #bbb;
+}
+
+/* 선택되었을 때 (Active) */
+.activeCat {
+    border: 2px solid #20c997 !important; /* 메인 컬러 (민트색 예시) */
+    background-color: #f0fffa;
+    color: #20c997;
+}
+
+/* 아이콘 스타일 */
+.catIcon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+/* 선택된 카드의 아이콘 색상 */
+.activeCat .catIcon {
+    color: #20c997;
+}
+
+/* 텍스트 라벨 */
+.catLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+    word-break: keep-all; /* 단어 중간 끊김 방지 */
+}
+
+/* --- 모달 (Step 1용) --- */
+.modalOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modalContent {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+/* ... 모달 내부 스타일들 ... */

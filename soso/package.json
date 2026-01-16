@@ -13,6 +13,7 @@
     "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "font-awesome": "^4.7.0",
     "jotai": "^2.16.1",
     "jotai-devtools": "^0.13.0",
     "jotai-utils": "^0.0.0",

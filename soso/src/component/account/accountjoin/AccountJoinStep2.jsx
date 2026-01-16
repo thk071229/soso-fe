@@ -8,8 +8,15 @@ import { FaCamera, FaEye, FaEyeSlash, FaUser } from "react-icons/fa6";
 // Custom Hook & Styles
 import { useImage } from "../../../utils/hooks/useImage";
 import styles from "./AccountJoinStep2.module.css";
+import { useSetAtom } from "jotai";
+import { accessTokenState, loginIdState} from "../../../utils/jotai";
 
 const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) => {
+
+    // jotai Setter
+    const setAccessToken = useSetAtom(accessTokenState);
+    const setLoginId = useSetAtom(loginIdState);
+
     // 1. 초기화 및 State 정의
     const navigate = useNavigate();
     const { file, preview, handleFile } = useImage("/images/default-profile.jpg");
@@ -182,32 +189,32 @@ const AccountJoinStep2 = ({ verifiedPhone, marketingAgree, thirdPartyAgree }) =>
         if (accountValid === false) return;
         try {
             const response = await axios.post("/account/join", formData);
-
             const accessToken = response.data.token;
 
-            if(accessToken){
-                window.localStorage.setItem("token", accessToken);
+            if (accessToken) {
 
-                axios.defaults.headers.common["Authorization"] = `Bearer` + accessToken;
+                setAccessToken(accessToken);
+                setLoginId(account.accountId);
 
                 alert("환영합니다! 원활한 이용을 위해 초기 설정을 진행합니다");
 
                 navigate("/account/initial-setup");
             }
-            else{
+            else {
                 // 혹시라도 토큰이 안 왔을 때 대비
                 alert("가입은 되었으나 자동 로그인에 실패했습니다.");
                 navigate("/account/login");
             }
-            navigate("/account/initial-setup");
         } catch (e) {
+            console.error("회원가입 에러 발생:", e);
+
             if (e.response && e.response.status === 409) {
                 alert(e.response.data.message || "이미 가입된 정보입니다.");
             } else {
                 alert("가입 중 오류가 발생했습니다.");
             }
         }
-    }, [account, accountValid, navigate]);
+    }, [account, accountValid, navigate, file, setAccessToken, setLoginId]);
 
     // [추가] 오늘 날짜 구하기 (미래 선택 방지용)
     const today = new Date().toISOString().split("T")[0];

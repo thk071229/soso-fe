@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import axios from "../utils/axios/customAxios";
 
 // ✨ [1] 방금 만든 컴포넌트 불러오기
-import SearchSection from "./SearchSection"; 
+import SearchSection from "./SearchSection";
 
 export default function Header() {
 
@@ -26,21 +26,24 @@ export default function Header() {
 
         if (window.confirm("로그아웃 하시겠습니까?")) {
             try {
-                // 1. 서버에 요청
+                // 1. 서버에 "나 갈게" 하고 말함.
+                // (여기서 토큰이 만료됐다면 서버는 401 에러를 뱉습니다 -> 바로 catch로 이동)
                 await axios.delete("/account/logout");
             }
             catch (err) {
-                console.warn("로그아웃 요청 중 에러 발생 (무시하고 진행):", err);
+                // 2. 서버가 "너 토큰 만료돼서 에러야!" 라고 해도
+                // "알았어, 어차피 나갈 거야" 하고 쿨하게 무시합니다.
+                console.warn("로그아웃 요청 에러(토큰 만료 등):", err);
             }
             finally {
-                // 2. 클라이언트 정리 (무조건 실행)
-                clearLogin();
+                // 3. [중요] 성공하든 실패하든, 내 브라우저의 짐을 쌉니다.
+                clearLogin(); // Jotai 비우기
+                window.sessionStorage.clear(); // 스토리지 비우기
                 delete axios.defaults.headers.common["Authorization"];
-                navigate("/");
+                navigate("/"); // 메인으로
             }
         }
     }, [clearLogin, navigate]);
-
     return (
         <header className="sticky-top bg-white border-bottom shadow-sm"> {/* stickey -> sticky 오타 수정 */}
 
