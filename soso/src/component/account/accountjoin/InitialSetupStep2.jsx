@@ -79,9 +79,13 @@ const InitialSetupStep2 = ({ onFinish }) => {
             window.sessionStorage.setItem("accessToken", accessToken);
 
             // 내 정보 가져오기
-            const profileResp = await axios.get("/account/profile", {
+            const response = await axios.get("/account/profile", {
                 headers: { Authorization: "Bearer " + accessToken }
             });
+
+            // 받아온 정보 입력
+            setLoginId(response.data.accountId);
+            setLoginLevel(response.data.accountLevel);
 
             if (onFinish) {
                 onFinish();

@@ -60,23 +60,33 @@ const SearchSection = () => {
 
         regionList.forEach((item) => {
             const fullName = item.regionName || "";
-            const [depth1, depth2] = fullName.split(" "); // 공백으로 나눔
+            const parts = fullName.split(" ");
+
+            const depth1 = parts[0];
+            const depth2 = parts[1];
 
             if (!depth1) return;
 
             if (!groups[depth1]) {
-                groups[depth1] = [];
+                groups[depth1] = new Set();
             }
 
             // "서울특별시" 처럼 뒤에 구/군이 없는 경우도 처리
             if (depth2) {
-                groups[depth1].push(depth2);
+                groups[depth1].add(depth2);
             } else {
-                groups[depth1].push("전체"); // 혹은 자기 자신
+                groups[depth1].add("전체"); // 혹은 자기 자신
             }
         });
 
-        return groups;
+        const result = {};
+        Object.keys(groups).forEach(key => {
+            result[key] = Array.from(groups[key]).sort();
+        });
+
+        console.log("분류된 지역 데이터", result);
+
+        return result;
     }, [regionList]);
 
     // 3. 최종 선택 핸들러
@@ -136,7 +146,7 @@ const SearchSection = () => {
                                                 {/* 라디오 버튼 모양 흉내 (원하면 제거 가능) */}
                                                 <input
                                                     type="radio"
-                                                    checked={selectedRegion.includes(depth2) && selectedRegion.includes(activeTab)}
+                                                    checked={selectedRegion?.includes(depth2) && selectedRegion?.includes(activeTab)}
                                                     readOnly
                                                     style={{ accentColor: '#20C997' }}
                                                 />

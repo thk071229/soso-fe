@@ -36,21 +36,38 @@ export default function InitialSetupStep1({ onNext }) {
         fetchRegions();
     }, []);
 
-    // 3. 데이터 가공 (작성하신 로직 그대로 + 최적화)
-    const groupedRegions = useMemo(() => {
+   const groupedRegions = useMemo(() => {
         const groups = {};
+
         regionList.forEach((item) => {
-            // regionName이 "서울특별시 종로구" 형태라고 가정
             const fullName = item.regionName || "";
-            const [depth1, depth2] = fullName.split(" ");
+            const parts = fullName.split(" ");
+
+            const depth1 = parts[0];
+            const depth2 = parts[1];
+
             if (!depth1) return;
 
-            if (!groups[depth1]) groups[depth1] = [];
+            if (!groups[depth1]) {
+                groups[depth1] = new Set();
+            }
 
-            // depth2가 있으면 넣고, 없으면(세종시 등) "전체" 처리
-            groups[depth1].push(depth2 || "전체");
+            // "서울특별시" 처럼 뒤에 구/군이 없는 경우도 처리
+            if (depth2) {
+                groups[depth1].add(depth2);
+            } else {
+                groups[depth1].add("전체"); // 혹은 자기 자신
+            }
         });
-        return groups;
+
+        const result = {};
+        Object.keys(groups).forEach(key => {
+            result[key] = Array.from(groups[key]).sort();
+        });
+
+        console.log("분류된 지역 데이터", result);
+
+        return result;
     }, [regionList]);
 
     // 4. 핸들러: 지역 선택 완료 (모달에서 구/군 클릭 시)
