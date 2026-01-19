@@ -1,5 +1,6 @@
 import ClubCard from "../component/ClubCard";
 import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
 
@@ -79,6 +80,11 @@ export default function Home() {
                                 동네 이웃들과 함께하는 취미 생활,<br />
                                 지금 바로 내 주변 모임을 찾아보세요!
                             </p>
+
+                            <Link to="/club/create" className="btn btn-primary btn-lg mt-3 shadow-sm">
+                                <i className="bi bi-plus-lg me-2"></i>모임 개설하기
+                            </Link>
+
                         </div>
                         {/* 배너 오른쪽엔 일러스트나 이미지가 들어가면 좋음 (일단 비워둠) */}
                         <div className="col-md-6 text-end d-none d-md-block">

@@ -5,6 +5,7 @@ import Home from "./Home";
 import Agreement from "./account/accountjoin/Agreement";
 import AccountLogin from "./account/AccountLogin";
 import InitialSetup from "./account/accountjoin/InitialSetup";
+import ClubCreate from "./club/ClubCreate";
 
 
 export default function Content() {
@@ -25,6 +26,9 @@ export default function Content() {
                         <Route path="/account/agreement" element={<Agreement/>}></Route>
                         <Route path="/account/login" element={<AccountLogin/>}></Route>
                         <Route path="/account/initial-setup" element={<InitialSetup/>}></Route>
+
+                        {/* 소모임 관련 페이지 */}
+                        <Route path="/club/create" element={<ClubCreate/>}></Route>
 
                     </Routes>
                 </div>
