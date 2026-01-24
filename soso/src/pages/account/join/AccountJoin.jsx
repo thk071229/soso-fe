@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Stepper from "../../common/stepper/Stepper";
+import Stepper from "../../../component/common/Stepper";
 import AccountJoinStep1 from "./AccountJoinStep1";
 import AccountJoinStep2 from "./AccountJoinStep2";
 import styles from "./AccountJoin.module.css";

@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom"
-import Content from "./component/Content"
-import Footer from "./component/Footer"
-import Header from "./component/Header"
+import Content from "./Content"
+import Footer from "./component/common/Footer"
+import Header from "./component/common/Header"
 
 // Jotai 개발자 도구 설정
 import "jotai-devtools/styles.css"; // 디자인

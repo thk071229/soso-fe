@@ -1,4 +1,4 @@
-import ClubCard from "../component/ClubCard";
+import ClubCard from "../component/club/ClubCard";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
 

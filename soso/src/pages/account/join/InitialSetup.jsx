@@ -1,6 +1,6 @@
 // 지역 카테고리 등 초기 설정을 위한 페이지
 import { useNavigate } from "react-router-dom";
-import Stepper from "../../common/stepper/Stepper";
+import Stepper from "../../../component/common/Stepper";
 import InitialSetupStep1 from "./InitialSetupStep1";
 import InitialSetupStep2 from "./InitialSetupStep2";
 import { useCallback, useState } from "react";
