@@ -1,0 +1,170 @@
+/* ... (기존 상단 컨테이너 등 스타일 유지) ... */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.inputGroup { margin-bottom: 20px; }
+.label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+.input, .textarea, .select { /* select 추가 */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.regionRow { display: flex; gap: 10px; }
+.regionInput { background-color: #f9f9f9; cursor: default; }
+.previewImg {
+    width: 150px; height: 150px;
+    object-fit: cover; border-radius: 12px;
+    border: 1px solid #eee; display: block; margin-bottom: 10px;
+}
+.btn {
+    padding: 10px 20px; border-radius: 8px; border: none;
+    font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btnPrimary {
+    background-color: #4a90e2; color: white;
+    width: 100%; padding: 15px; font-size: 18px; margin-top: 20px;
+}
+.btnOutline {
+    background-color: white; border: 1px solid #4a90e2; color: #4a90e2; white-space: nowrap;
+}
+
+/* === [수정 1] 카테고리 (Flex로 변경하여 깨짐 방지) === */
+.categoryContainer {
+    display: flex;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 8px;       /* 버튼 사이 간격 */
+    margin-top: 5px;
+}
+
+.categoryBtn {
+    padding: 8px 16px;
+    border: 1px solid #eee;
+    background-color: #f8f9fa;
+    border-radius: 20px; /* 둥글게 */
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.categoryBtn:hover {
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+
+.activeCategory {
+    background-color: #e3f2fd;
+    border-color: #4a90e2;
+    color: #4a90e2;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+}
+
+/* === [수정 2] 모달 디자인 개선 === */
+.modalOverlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.modalContent {
+    background: white; width: 90%; max-width: 500px;
+    border-radius: 12px; padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-height: 85vh; overflow-y: auto;
+}
+.modalHeader {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;
+}
+.modalTitle { font-size: 20px; font-weight: bold; margin: 0; }
+.closeBtn { background: none; border: none; font-size: 28px; cursor: pointer; color: #999; }
+
+/* 모달 내부 구역 나누기 */
+.sectionTitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.tagContainer {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tagBtn {
+    padding: 8px 14px; border-radius: 6px; /* 살짝 덜 둥글게 */
+    border: 1px solid #ddd; background: white;
+    cursor: pointer; font-size: 14px; color: #333;
+}
+.tagBtn:hover { background-color: #f1f3f5; }
+
+.activeTag {
+    background-color: #4a90e2; color: white; border-color: #4a90e2;
+}
+
+/* ... 기존 내용 아래에 추가 ... */
+
+/* 가입 방식 선택 (카드형 버튼) */
+.joinTypeContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.joinTypeBtn {
+    flex: 1; /* 반반씩 차지 */
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left; /* 글자 왼쪽 정렬 */
+    transition: all 0.2s;
+}
+
+.joinTypeBtn:hover {
+    background-color: #f9f9f9;
+}
+
+/* 선택된 상태 */
+.activeJoinType {
+    border-color: #4a90e2;
+    background-color: #f0f7ff;
+    box-shadow: 0 0 0 1px #4a90e2 inset; /* 테두리 안쪽 강조 */
+}
+
+/* 내부 텍스트 스타일 */
+.joinTitle {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.joinDesc {
+    display: block;
+    font-size: 13px;
+    color: #888;
+}
+
+/* 선택되었을 때 글자 색상 변경 */
+.activeJoinType .joinTitle { color: #4a90e2; }
+.activeJoinType .joinDesc { color: #5a9bd5; }
