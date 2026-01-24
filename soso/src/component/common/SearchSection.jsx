@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState, useMemo, useRef } from "react";
 import styles from './SearchSection.module.css';
-import axios from "../utils/axios/customAxios";
+import axios from "../../utils/axios/customAxios";
 import { useAtom } from "jotai";
-import { regionState } from "../utils/jotai";
+import { regionState } from "../../utils/jotai";
 
 const SearchSection = () => {
 

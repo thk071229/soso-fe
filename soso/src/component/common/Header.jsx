@@ -1,9 +1,9 @@
 import styles from "./Header.module.css";
 import { useAtomValue, useSetAtom } from "jotai"; // useAtom -> useAtomValue, useSetAtom으로 최적화
 import { Link, useNavigate } from "react-router-dom";
-import { adminState, clearLoginState, loginIdState, loginState } from "../utils/jotai"; // 경로 확인
+import { adminState, clearLoginState, loginIdState, loginState } from "../../utils/jotai"; // 경로 확인
 import { useCallback } from "react";
-import axios from "../utils/axios/customAxios";
+import axios from "../../utils/axios/customAxios";
 
 // ✨ [1] 방금 만든 컴포넌트 불러오기
 import SearchSection from "./SearchSection";
