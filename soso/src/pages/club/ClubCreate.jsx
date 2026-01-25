@@ -31,6 +31,8 @@ export default function ClubCreate() {
 
     // 1. 지역 정보 로드
     useEffect(() => {
+        if(!loginId) return;
+        
         const fetchRegions = async () => {
             try {
                 const { data } = await axios.get("/region");
